@@ -26,15 +26,15 @@ def t1q1(f):
 
     x = 1
 
-    gp.c('set terminal eps')
+    gp.c('set terminal png')
     gp.c('set xrange[-1.5:2.5]')
     gp.c('set yrange[-3:5]')
     gp.c('set xtics 0.5')
     gp.c('set ytics 1')
     gp.c('set grid')
-    gp.c('set xzeroaxis lw 5')
-    gp.c('set yzeroaxis lw 5')
-    gp.c('set output "t1q1.eps"')
+    gp.c('set xzeroaxis lw 2')
+    gp.c('set yzeroaxis lw 2')
+    gp.c('set output "t1q1.png"')
     gp.c('plot x*x*x - 2*x*x - x + 2 title "função cúbica"')
 
     a = fprime(x)
@@ -43,7 +43,7 @@ def t1q1(f):
 
     appPoint(x, f(x))
 
-    gp.c('set output "t1q1.eps"')
+    gp.c('set output "t1q1.png"')
     gp.c(f'replot {a}*x + {b} title "reta tangente em x = 1"')
 
     roots = bhaskara(3, -4, -1)
@@ -54,12 +54,12 @@ def t1q1(f):
         y = f(x)
         b = find_b(a, x, y)
 
-        gp.c('set output "t1q1.eps"')
+        gp.c('set output "t1q1.png"')
         gp.c(f'replot {a}*x + {b} title "reta tangente em x = {root}"')
 
         appPoint(x, y)
         
-    gp.c('set output "t1q1.eps"')
+    gp.c('set output "t1q1.png"')
     gp.c('replot "points.pts" title "pontos"')
     
 if __name__ == '__main__':

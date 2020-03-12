@@ -1,6 +1,5 @@
 import PyGnuplot as gp
 from math import *
-import numpy as np
 
 def f(x):
     return x**3 - 2*x**2 - x + 2
@@ -17,20 +16,32 @@ def bhaskara(a, b, c):
     root_2 = (-b - sqrt(delta))/(2*a)
     return [root_1, root_2]
 
+def appPoint(x, y):
+    f = open("points.pts", "a")
+    f.write(f"{x} {y}\n")
+    f.close()
+
 def t1q1(f):
+    open('points.pts', 'w').close()
+
     x = 1
 
     gp.c('set terminal eps')
     gp.c('set xrange[-1.5:2.5]')
-    gp.c('set xzeroaxis')
-    gp.c('set yzeroaxis')
+    gp.c('set yrange[-3:5]')
+    gp.c('set xtics 0.5')
+    gp.c('set ytics 1')
     gp.c('set grid')
+    gp.c('set xzeroaxis lw 5')
+    gp.c('set yzeroaxis lw 5')
     gp.c('set output "t1q1.eps"')
-    gp.c('plot x*x*x - 2*x - x + 2 title "função cúbica"')
+    gp.c('plot x*x*x - 2*x*x - x + 2 title "função cúbica"')
 
     a = fprime(x)
     y = f(x)
     b = find_b(a, x, y)
+
+    appPoint(x, f(x))
 
     gp.c('set output "t1q1.eps"')
     gp.c(f'replot {a}*x + {b} title "reta tangente em x = 1"')
@@ -45,6 +56,11 @@ def t1q1(f):
 
         gp.c('set output "t1q1.eps"')
         gp.c(f'replot {a}*x + {b} title "reta tangente em x = {root}"')
+
+        appPoint(x, y)
         
+    gp.c('set output "t1q1.eps"')
+    gp.c('replot "points.pts" title "pontos"')
+    
 if __name__ == '__main__':
     t1q1(f)
